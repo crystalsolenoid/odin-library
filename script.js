@@ -4,6 +4,6 @@ function Book () {
 	// the constructor...
 }
 
-function addBookToLibrary() {
-	// do stuff here
+function addBookToLibrary(input) {
+	myLibrary.push(new Book(input));
 }
