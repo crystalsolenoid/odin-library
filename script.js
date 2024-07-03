@@ -44,14 +44,18 @@ Book.prototype.deleteFromLibrary = function() {
 	delete this;
 }
 
+Book.prototype.toggleRead = function() {
+	this.read = !this.read;
+	this.readElement.textContent = this.read ? "read" : "not read";
+}
+
 function deleteBook(event) {
 	let book = myLibrary[this.index];
-	book.deleteFromLibrary()
+	book.deleteFromLibrary();
 }
 
 function toggleRead(event) {
-	this.book.read = !this.book.read;
-	this.textContent = this.book.read ? "read" : "not read";
+	this.book.toggleRead();
 }
 
 
