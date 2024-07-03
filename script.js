@@ -19,12 +19,14 @@ Book.prototype.generateElement = function() {
 
 Book.prototype.setIndex = function(index) {
 	this.index = index;
+	this.element.id = `book-${index}`;
 	this.deleteButton.index = index;
 };
 
 function deleteBook(event) {
-	delete myLibrary[this.index];
-	displayLibrary();
+	let book = myLibrary[this.index];
+	document.getElementById(`book-${this.index}`).remove();
+	delete book;
 }
 
 // TODO: don't allow empty books to be submitted (validate first)
@@ -32,26 +34,15 @@ function submitNewBook(event) {
 	event.preventDefault();
 	var newBook = addBookToLibrary(this[0].value, this[1].value);
 	this.reset();
-	displayLibrary();
 }
 
 function addBookToLibrary(title, author) {
 	var newBook = new Book(title, author);
 	index = myLibrary.push(newBook) - 1;
 	newBook.setIndex(index);
-	return newBook;
-}
-
-function displayLibrary() {
-	let library = myLibrary;
 	let libraryElement = document.getElementById('library');
-	// TODO: don't remove then add all children each time we modify the book list
-	while (libraryElement.firstChild) {
-		libraryElement.removeChild(libraryElement.firstChild);
-	}
-	library.forEach((book) => {
-		index = libraryElement.append(book.element);
-	});
+	libraryElement.append(newBook.element);
+	return newBook;
 }
 
 const addBookForm = document.getElementById('add-book');
@@ -60,6 +51,3 @@ addBookForm.addEventListener("submit", submitNewBook);
 addBookToLibrary("The Hobbit", "Tolkein");
 addBookToLibrary("So You Want To Be A Wizard", "Diane Duane");
 addBookToLibrary("Going Postal", "Terry Pratchett");
-
-displayLibrary();
-
