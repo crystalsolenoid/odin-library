@@ -3,6 +3,28 @@ const myLibrary = [];
 function Book (title, author) {
 	this.title = title;
 	this.author = author;
+
+	[this.element, this.deleteButton] = this.generateElement();
+}
+
+Book.prototype.generateElement = function() {
+	let bookElement = document.createElement('li');
+	bookElement.textContent = `${this.title} by ${this.author}`;
+	deleteButton = document.createElement('button');
+	deleteButton.textContent = "delete";
+	bookElement.append(deleteButton);
+	deleteButton.addEventListener("click", deleteBook);
+	return [bookElement, deleteButton];
+};
+
+Book.prototype.setIndex = function(index) {
+	this.index = index;
+	this.deleteButton.index = index;
+};
+
+function deleteBook(event) {
+	delete myLibrary[this.index];
+	displayLibrary();
 }
 
 // TODO: don't allow empty books to be submitted (validate first)
@@ -15,7 +37,8 @@ function submitNewBook(event) {
 
 function addBookToLibrary(title, author) {
 	var newBook = new Book(title, author);
-	myLibrary.push(newBook);
+	index = myLibrary.push(newBook) - 1;
+	newBook.setIndex(index);
 	return newBook;
 }
 
@@ -27,12 +50,7 @@ function displayLibrary() {
 		libraryElement.removeChild(libraryElement.firstChild);
 	}
 	library.forEach((book) => {
-		let bookElement = document.createElement('li');
-		bookElement.textContent = `${book.title} by ${book.author}`;
-		deleteButton = document.createElement('button');
-		deleteButton.textContent = "delete";
-		bookElement.append(deleteButton);
-		libraryElement.append(bookElement);
+		index = libraryElement.append(book.element);
 	});
 }
 
