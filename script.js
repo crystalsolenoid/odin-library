@@ -23,10 +23,21 @@ Book.prototype.setIndex = function(index) {
 	this.deleteButton.index = index;
 };
 
+Book.prototype.addToLibrary = function(library) {
+	index = library.push(this) - 1;
+	this.setIndex(index);
+	let libraryElement = document.getElementById('library');
+	libraryElement.append(this.element);
+}
+
+Book.prototype.deleteFromLibrary = function() {
+	document.getElementById(`book-${this.index}`).remove();
+	delete this;
+}
+
 function deleteBook(event) {
 	let book = myLibrary[this.index];
-	document.getElementById(`book-${this.index}`).remove();
-	delete book;
+	book.deleteFromLibrary()
 }
 
 // TODO: don't allow empty books to be submitted (validate first)
@@ -38,10 +49,7 @@ function submitNewBook(event) {
 
 function addBookToLibrary(title, author) {
 	var newBook = new Book(title, author);
-	index = myLibrary.push(newBook) - 1;
-	newBook.setIndex(index);
-	let libraryElement = document.getElementById('library');
-	libraryElement.append(newBook.element);
+	newBook.addToLibrary(myLibrary);
 	return newBook;
 }
 
