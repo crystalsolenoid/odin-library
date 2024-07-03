@@ -29,6 +29,9 @@ function displayLibrary() {
 	library.forEach((book) => {
 		let bookElement = document.createElement('li');
 		bookElement.textContent = `${book.title} by ${book.author}`;
+		deleteButton = document.createElement('button');
+		deleteButton.textContent = "delete";
+		bookElement.append(deleteButton);
 		libraryElement.append(bookElement);
 	});
 }
