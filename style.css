@@ -1,0 +1,29 @@
+#library {
+	padding: 1em;
+	list-style: none;
+	color: red;
+
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(20ex, 1fr));
+}
+
+#library > li {
+	color: green;
+	margin: 0.3em;
+	padding: 0.3em;
+	background-color: #eee;
+
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-items: center;
+	align-items: center;
+
+	gap: 4px;
+}
+
+#library > li > h2 {
+	grid-column: 1 / -1;
+	font-size: inherit;
+	align-self: start;
+	margin: 0;
+}

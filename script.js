@@ -10,7 +10,10 @@ function Book (title, author, read) {
 
 Book.prototype.generateElement = function() {
 	let bookElement = document.createElement('li');
-	bookElement.textContent = `${this.title} by ${this.author}`;
+
+	let titleElement = document.createElement('h2');
+	titleElement.textContent = `${this.title} by ${this.author}`;
+	bookElement.append(titleElement);
 
 	let readElement = document.createElement('button');
 	readElement.textContent = this.read ? "read" : "not read";
@@ -49,6 +52,8 @@ Book.prototype.toggleRead = function() {
 	this.readElement.textContent = this.read ? "read" : "not read";
 }
 
+// TODO: refactor these two into a handleEvent method
+// using addEventListener with the Book object instance
 function deleteBook(event) {
 	let book = myLibrary[this.index];
 	book.deleteFromLibrary();
